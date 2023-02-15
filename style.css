@@ -1,0 +1,52 @@
+:root{
+    --colour-blue-soft: #053160;
+    --colour-blue-dark: #031E3C;
+    --color-yellow: #FFC80B;
+    --button-height: 92px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+html {
+    background-color: var(--colour-blue-dark);
+}
+
+body {
+    display: flex;
+    background-color: var(--colour-blue-soft);
+    max-width: 800px;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    color: var(--color-yellow);
+    cursor: pointer;
+    font-size: clamp(2.5rem, 3vw, 3.5rem);
+    font-weight: bold;
+    flex:1;
+}
+
+#info {
+    display: flex;
+    height: var(--button-height)
+}
+
+#menu {
+    display: flex;
+    height: var(--button-height)
+}
+
+
