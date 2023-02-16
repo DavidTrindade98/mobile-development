@@ -1,5 +1,5 @@
 :root{
-    --colour-blue-soft: #053160;
+    --colour-blue-soft: grey;
     --colour-blue-dark: #031E3C;
     --color-yellow: #FFC80B;
     --button-height: 92px;
@@ -57,7 +57,18 @@ button {
 
 #controller > button {
     width: 30px;
-    height: 40px;
+    height: 100px;
 }
+
+#volume {
+    width: 100%;
+    display: flex;
+}
+
+input[type="range"]{
+    flex: 1;
+    height: 100%;
+}
+
 
 

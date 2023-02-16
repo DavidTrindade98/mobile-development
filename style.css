@@ -1,8 +1,10 @@
 :root{
-    --colour-blue-soft: #053160;
-    --colour-blue-dark: #031E3C;
-    --color-yellow: #FFC80B;
+    --primary-color: #053160;
+    --secondary-color: #031E3C;
+    --terciary-color: #FFC80B;
     --button-height: 92px;
+
+    --slider-position: 10%;
 }
 
 * {
@@ -17,12 +19,12 @@ html, body {
 }
 
 html {
-    background-color: var(--colour-blue-dark);
+    background-color: var(--secondary-color);
 }
 
 body {
     display: flex;
-    background-color: var(--colour-blue-soft);
+    background-color: var(--primary-color);
     max-width: 800px;
     flex-direction: column;
     margin: 0 auto;
@@ -32,7 +34,7 @@ body {
 button {
     border: none;
     background-color: transparent;
-    color: var(--color-yellow);
+    color: var(--terciary-color);
     cursor: pointer;
     font-size: clamp(2.5rem, 3vw, 3.5rem);
     font-weight: bold;
@@ -65,8 +67,25 @@ button {
     display: flex;
 }
 
-input[type="range"]{
-    flex: 1;
+input {
+    position: relative;
+    appearance: none;
+    background-color: var(--secondary-color);
+    height: var(--button-height);
+    width: 100%;
+  }
+  
+  input:before {
+    content: "";
+    position: absolute;
+    width: 10%;
     height: 100%;
-}
+    background-color: var(--terciary-color);
+  }
+  
+  input::-webkit-slider-thumb {
+    opacity: 0;
+  }
+
+
 
