@@ -6,7 +6,7 @@
     <title>PWA Player</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='style.css'>
-    <script src='script.js'></script>
+    <script type="module" src='script.js'></script>
 </head>
 <body>
     <div id="info">
@@ -29,7 +29,12 @@
             </svg>
         </button>
     </div>
-    <div id="volume">
+    <div id="scrub" class="range">
+        <div class="range-bar"></div>
+        <input type="range" min="0" max="100" value="10">
+    </div>
+    <div id="volume" class="range">
+        <div class="range-bar"></div>
         <input type="range" min="0" max="100" value="10">
     </div>
     <div id="menu">

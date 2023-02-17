@@ -55,6 +55,8 @@ button {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    flex: 1;
+    align-items: center;
 }
 
 #controller > button {
@@ -65,27 +67,30 @@ button {
 #volume {
     width: 100%;
     display: flex;
+    flex: 1;
 }
 
-input {
-    position: relative;
-    appearance: none;
-    background-color: var(--secondary-color);
-    height: var(--button-height);
-    width: 100%;
-  }
-  
-  input:before {
-    content: "";
+input[type="range"]{
     position: absolute;
-    width: 10%;
-    height: 100%;
-    background-color: var(--terciary-color);
-  }
-  
-  input::-webkit-slider-thumb {
+    inset: 0;
     opacity: 0;
-  }
+}
+
+.range{
+    position: relative;
+    display: flex;
+    flex: 1;
+}
+
+.range-bar{
+    flex: 1;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(0.5);
+    background-color: var(--terciary-color);
+    pointer-events: none;
+}
+
 
 
 
