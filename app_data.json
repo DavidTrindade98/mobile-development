@@ -1,0 +1,72 @@
+[
+  {
+    "id": "radios",
+    "name": "Radios",
+    "type": "folder",
+    "children": [
+      {
+        "id": "radios/Radio A",
+        "name": "Radio A",
+        "type": "music",
+        "url": "link para o stream de radio"
+      },
+      {
+        "id": "radios/Radio B",
+        "name": "Radio B",
+        "type": "music",
+        "url": "link para o stream de radio"
+      } 
+    ]
+  }, 
+  {
+    "id": "music",
+    "name": "music",
+    "type": "folder",
+    "children": [
+      {
+        "id": "music/Estilo A",
+        "name": "Estilo A",
+        "type": "folder",
+        "children": [
+          {
+            "id": "music/Estilo A/Banda A",
+            "name": "Banda A",
+            "type": "folder",
+            "children": [
+              {
+                "id": "music/Estilo A/Banda A/nome da musica",
+                "name": "filho da musica",
+                "type": "file",
+                "url": "url para a musica"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "music/Estilo B",
+        "name": "Estilo B",
+        "type": "folder",
+        "children": [
+          {
+            "id": "music/Estilo B/Banda B",
+            "name": "Banda B",
+            "type": "folder",
+            "children": [
+              {
+                "id": "music/Estilo B/Banda B/nome da musica",
+                "name": "nome da musica",
+                "type": "file",
+                "url": "url para a musica"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "open",
+    "type": "open"
+  }
+]
