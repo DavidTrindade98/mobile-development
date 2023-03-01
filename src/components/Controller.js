@@ -4,7 +4,7 @@ import ToggleButton from "./ToggleButton.js";
 
 export default class Controller extends Component {
   currentState = "pause";
-  
+
   #previousButton;
   #actionButton;
   #nextButton;
@@ -23,7 +23,6 @@ export default class Controller extends Component {
         ? this.callback("play")
         : this.callback("pause");
     });
-    this.#actionButton.toggle();
 
     this.#nextButton = new Button("#next-button", () => {
       this.callback("next");

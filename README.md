@@ -12,7 +12,7 @@ The app is built using the following technologies:
 - Firebase
 
 ## How to use
- 
+
 Access the app [here](https://DavidTrindade98.github.io/mobile-development-david/)
 
 ## Contributors

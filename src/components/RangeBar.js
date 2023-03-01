@@ -9,7 +9,7 @@ export default class RangeBar extends Component {
 
     this.#rangeInput = this.element.querySelector("input[type='range']");
     this.#rangeBar = this.element.querySelector(".range-bar");
-  
+
     this.#rangeInput.oninput = () => {
       this.value = this.#rangeInput.value;
 

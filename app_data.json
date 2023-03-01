@@ -15,9 +15,9 @@
         "name": "Radio B",
         "type": "music",
         "url": "link para o stream de radio"
-      } 
+      }
     ]
-  }, 
+  },
   {
     "id": "music",
     "name": "music",

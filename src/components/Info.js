@@ -5,7 +5,7 @@ export default class Info extends Component {
   #infoContainer;
   #infoButton;
   #isOpened = false;
-  
+
   constructor(elemID, callback) {
     super(elemID, callback);
 

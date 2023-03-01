@@ -2,7 +2,7 @@ export default class AudioPlayer {
   #audio;
   #playlist = [];
   #trackIndex = 0;
-  
+
   currentState = "pause";
   callback;
 
@@ -62,9 +62,13 @@ export default class AudioPlayer {
     }
   }
 
+  pause() {
+    this.#audio.pause();
+  }
+
   next() {
     this.#trackIndex++;
-    if (this.#trackIndex >= this.playlist.length) this.#trackIndex = 0;
+    if (this.#trackIndex >= this.#playlist.length) this.#trackIndex = 0;
     this.play(this.#playlist[this.#trackIndex], this.#playlist);
   }
 
@@ -74,7 +78,7 @@ export default class AudioPlayer {
 
   set currentTrack(track) {
     for (let i = 0; i < this.#playlist.length; i++) {
-      const music = this.playlist[i];
+      const music = this.#playlist[i];
 
       if (music.id === track.id) {
         this.#trackIndex = i;

@@ -10,7 +10,7 @@ export default class Menu extends Component {
   #backButton;
   #currentList;
   #isOpen = false;
-  
+
   constructor(elemId, callback) {
     super(elemId, callback);
 
@@ -55,7 +55,7 @@ export default class Menu extends Component {
       this.#menuContainer.removeChild(list);
 
       this.#currentList =
-        this.#menuContainer.children[this.#menuContainer.children - 1];
+        this.#menuContainer.children[this.#menuContainer.children.length - 1];
       this.#currentList.style.transform = "translateX(0)";
     } else {
       this.#menuContainer.innerHTML = "";

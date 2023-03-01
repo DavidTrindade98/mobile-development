@@ -8,8 +8,8 @@ export default class ToggleButton extends Button {
     super(elemID, callback);
     this.#togglesList = this.element.children;
     this.toggle(0);
-  } 
-   
+  }
+
   toggle(index = null) {
     this.#togglesList[this.#currentToggleIndex].style.display = "none";
 

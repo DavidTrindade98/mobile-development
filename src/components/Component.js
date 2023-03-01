@@ -2,7 +2,7 @@ export default class Component {
   element;
   callback;
   SPEED = 0;
-  
+
   constructor(
     elementID = null,
     callback = () => {
@@ -13,10 +13,9 @@ export default class Component {
     this.callback = callback;
     this.SPEED = parseFloat(
       getComputedStyle(document.documentElement)
-        .getPropertyValue("--transition-speed")
+        .getPropertyValue("--speed")
         .replace(/(ms|s)/g, "")
     );
-    console.log(this.SPEED);
   }
 
   setElement(element) {

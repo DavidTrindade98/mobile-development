@@ -5,9 +5,9 @@ export default class ListButton extends Button {
 
   constructor(data, callback) {
     super(null, callback);
- 
+
     this.#listButtonData = data;
- 
+
     const divElement = document.createElement("div");
     const template = document.querySelector(".list-item");
     const templateClone = template.content.cloneNode(true);
