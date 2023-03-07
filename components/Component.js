@@ -3,19 +3,16 @@ export default class Component {
   callback;
   SPEED = 0;
 
-  constructor(
-    elementID = null,
-    callback = () => {
-      console.log("cb not defined");
-    }
-  ) {
+  constructor(elementID = null, callback = () => {}) {
     this.element = document.querySelector(elementID);
     this.callback = callback;
-    this.SPEED = parseFloat(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue("--speed")
-        .replace(/(ms|s)/g, "")
-    );
+
+    this.SPEED =
+      parseFloat(
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--speed")
+          .replace(/(ms|s)/g, "")
+      ) * 1000;
   }
 
   setElement(element) {
@@ -25,7 +22,6 @@ export default class Component {
   get displayed() {
     return this.element.style.display === "initial";
   }
-
   set displayed(value) {
     let display;
     value ? (display = "initial") : (display = "none");

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JavaScript PWA Music Player" />
+    <link rel="manifest" href="webmanifest.json" />
+    <link rel="icon" type="image/svg+xml" href="app_logo.svg" />
+    <title>PWA Music Player</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="info">
+      <div id="info-container">
+        <h2>Name</h2>
+        <p class="name">Music Player PWA</p>
+        <h2>Type</h2>
+        <p class="type">JavaScript PWA audio player</p>
+      </div>
+      <button id="info-button" class="toggle" aria-label="Info">
+        <label>MUSIC PLAYER</label>
+        <svg
+          width="45px"
+          height="45px"
+          viewBox="0 0 6 6"
+          fill="var(--primary-color)"
+        >
+          <path
+            d="M2.831,1.858l1.802,-1.858l1.03,1.062l-1.716,1.769l1.716,1.77l-1.03,1.062l-1.802,-1.858l-1.801,1.858l-1.03,-1.062l1.716,-1.77l-1.716,-1.769l1.03,-1.062l1.801,1.858Z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div id="controller">
+      <button id="previous-button" aria-label="Previous">
+        <svg
+          width="30%"
+          height="40%"
+          viewBox="0 0 9 12"
+          fill="var(--primary-color)"
+        >
+          <path
+            d="M1.899,6.024l0,4.961l-1.899,-0l0,-10.985l1.899,0l0,4.996l7,-4.978l-0,10.984l-7,-4.978Z"
+          />
+        </svg>
+      </button>
+      <button id="action-button" class="toggle" aria-label="Action">
+        <svg
+          width="90%"
+          height="100%"
+          viewBox="0 0 23 23"
+          fill="var(--primary-color)"
+        >
+          <path d="M22.164,11.082l-22.164,11.082l0,-22.164l22.164,11.082Z" />
+        </svg>
+        <svg
+          width="90%"
+          height="100%"
+          viewBox="0 0 23 23"
+          fill="var(--primary-color)"
+        >
+          <rect x="-0" y="0" width="9.339" height="22.166" />
+          <rect x="12.825" y="0" width="9.339" height="22.166" />
+        </svg>
+
+        <svg
+          width="90%"
+          height="100%"
+          viewBox="0 0 23 23"
+          fill="var(--terciary-color)"
+        >
+          <rect x="0" y="8.29" width="5.585" height="5.585" />
+          <rect x="8.29" y="8.29" width="5.585" height="5.585" />
+          <rect x="16.58" y="8.29" width="5.585" height="5.585" />
+        </svg>
+        <svg
+          width="90%"
+          height="100%"
+          viewBox="0 0 6 6"
+          fill="var(--error-color)"
+        >
+          <path
+            d="M2.831,1.858l1.802,-1.858l1.03,1.062l-1.716,1.769l1.716,1.77l-1.03,1.062l-1.802,-1.858l-1.801,1.858l-1.03,-1.062l1.716,-1.77l-1.716,-1.769l1.03,-1.062l1.801,1.858Z"
+          />
+        </svg>
+      </button>
+      <button id="next-button" aria-label="Next">
+        <svg
+          width="30%"
+          height="40%"
+          viewBox="0 0 9 12"
+          fill="var(--primary-color)"
+        >
+          <path
+            d="M7,4.978l-0,-4.96l1.899,-0l-0,10.984l-1.899,0l-0,-4.995l-7,4.978l-0,-10.985l7,4.978Z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div id="scrub" class="range">
+      <div class="range-bar"></div>
+      <input type="range" min="0" max="100" value="10" aria-label="Srcub" />
+    </div>
+
+    <div id="volume" class="range">
+      <div class="range-bar"></div>
+      <input type="range" min="0" max="100" value="10" aria-label="Volume" />
+    </div>
+
+    <div id="menu">
+      <div id="menu-container"></div>
+      <button id="menu-back-button" class="back-button" aria-label="Menu Back">
+        <svg
+          width="100%"
+          height="45px"
+          viewBox="0 0 7 5"
+          fill="var(--primary-color)"
+        >
+          <path
+            d="M3.083,0.855l-0.832,-0.855l-2.251,2.251l2.221,2.279l0.844,-0.844l-1.377,-1.435l1.395,-1.396Z"
+          />
+          <path
+            d="M6.247,0.855l-0.832,-0.855l-2.251,2.251l2.221,2.279l0.844,-0.844l-1.377,-1.435l1.395,-1.396Z"
+          />
+        </svg>
+      </button>
+      <button id="menu-button" class="toggle" aria-label="Menu">
+        <svg
+          width="45px"
+          height="45px"
+          viewBox="0 0 11 11"
+          fill="var(--primary-color)"
+        >
+          <rect x="0" y="0" width="10.355" height="2.609" />
+          <rect x="0" y="3.876" width="10.355" height="2.609" />
+          <rect x="0" y="7.746" width="10.355" height="2.609" />
+        </svg>
+        <svg
+          width="45px"
+          height="45px"
+          viewBox="0 0 6 6"
+          fill="var(--primary-color)"
+        >
+          <path
+            d="M2.831,1.858l1.802,-1.858l1.03,1.062l-1.716,1.769l1.716,1.77l-1.03,1.062l-1.802,-1.858l-1.801,1.858l-1.03,-1.062l1.716,-1.77l-1.716,-1.769l1.03,-1.062l1.801,1.858Z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <input
+      type="file"
+      id="file-input"
+      multiple
+      accept="audio/*"
+      class="hidden"
+      aria-label="Files"
+    />
+
+    <div id="peek-a-boo">peekaboo</div>
+
+    <div id="splash">
+      <svg width="92px" height="92px" viewBox="0 0 21 21">
+        <rect
+          x="0"
+          y="0"
+          width="20.71"
+          height="20.71"
+          fill="var(--terciary-color)"
+        />
+        <path
+          d="M16.663,17.003l-4.283,0l-0,-3.994l2.048,-0l-0,-5.309l-6.076,0l0.001,9.303l-4.284,0l0,-3.994l2.047,-0l-0,-9.302l10.547,0l0,13.296Z"
+          fill="var(--primary-color)"
+        />
+      </svg>
+      <p></p>
+    </div>
+
+    <template class="list-item">
+      <li>
+        <label>Item default</label>
+        <div class="toggle">
+          <svg
+            width="31px"
+            height="45px"
+            viewBox="0 0 6 8"
+            fill="var(--secondary-color)"
+          >
+            <path
+              d="M1.403,0l3.613,3.64l-3.661,3.641l-1.355,-1.374l2.27,-2.243l-2.24,-2.308l1.373,-1.356Z"
+            />
+          </svg>
+        </div>
+      </li>
+    </template>
+  </body>
+</html>

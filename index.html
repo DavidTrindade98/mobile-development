@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+      
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JavaScript PWA Music Player" />
+    <link rel="manifest" href="webmanifest.json" />
+    <link rel="icon" type="image/svg+xml" href="app_logo.svg" />
     <title>PWA Music Player</title>
-    <!-- Scripts -->
-    <link rel="stylesheet" href="src/styles/styles.css" />
-    <script src="src/scripts/main.js" type="module"></script>
-  </head>
-  <body>
+
+
+    <style>
+        :root{--primary-color:#488acc;--secondary-color:#0f0f0f;--terciary-color:#1d2020;--quadriary-color:#ababc0;--success-color:#2ca105;--warning-color:#ff9e03;--error-color:#d40a0a;--speed:0.2s;--font-size:clamp(2.5rem, 3vw, 3.5rem);--font-bold:600;--font-light:300;--button-height:92px}::-webkit-scrollbar{width:0;opacity:0}*{padding:0;margin:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent}body,html{background-color:#000;max-width:100%;height:100vh}body{position:relative;display:flex;flex-direction:column;justify-content:space-between;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;background-color:var(--secondary-color);max-width:800px;height:100vh;margin:0 auto;row-gap:10px}h2{color:var(--primary-color)}label{color:var(--primary-color);font-size:var(--font-size);font-weight:var(--font-bold);text-transform:uppercase;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}li label{color:var(--secondary-color)}p{font-weight:500;font-size:18px;color:var(--quadriary-color)}button{display:flex;align-items:center;justify-content:center;border:none;background-color:transparent;cursor:pointer;max-width:100%;flex:1;padding:10px}button:active>*,li:active>*{scale:.9}input[type=range]{position:absolute;inset:0;opacity:0}input[type=file]{position:absolute;top:0;left:0;visibility:hidden;pointer-events:none}#info{display:flex;max-height:var(--button-height);flex:1}#info-container{display:flex;flex-direction:column;position:absolute;inset:0;padding:10px;row-gap:10px;top:var(--button-height);bottom:var(--button-height);overflow-x:hidden;overflow-y:scroll;background-color:var(--terciary-color);transform:scaleY(0);transform-origin:top;transition:transform var(--speed) ease;z-index:100}#info-container>*{display:none}#controller{display:flex;justify-content:space-between;align-items:center;gap:10px;flex:1}#scrub{flex:1;max-height:16px;display:none}#volume{flex:1}.range{position:relative;display:flex;background-color:var(--terciary-color)}.range-bar{flex:1;transform-origin:left;transform:scaleX(.5);background-color:var(--primary-color);pointer-events:none;width:100%}#menu{display:flex;max-height:var(--button-height);flex:1;justify-self:end}#menu-container{position:absolute;inset:0;bottom:var(--button-height);display:flex;overflow-x:hidden;overflow-y:scroll;background-color:var(--quadriary-color);transform:scaleY(0);transform-origin:bottom;transition:transform var(--speed) ease;z-index:101}#menu-back-button{display:none}#menu-container ul{position:absolute;inset:0;display:flex;flex-direction:column;flex:1;list-style:none;background-color:var(--quadriary-color);transform:translateX(100%);transition:var(--speed) ease}#menu-container li{display:grid;grid-template-columns:auto 45px;max-height:72px;cursor:pointer;gap:10px;padding:10px;flex:1}#menu-container li.leaf{display:flex}li .toggle{justify-content:flex-end}#peek-a-boo{display:flex;justify-content:center;align-items:center;position:absolute;inset:0;max-height:32px;color:#fff;font-weight:500;font-size:12px;z-index:200;transform:translateY(-100%);animation-duration:var(--speed);animation-fill-mode:forwards;pointer-events:none}#splash{position:absolute;display:flex;flex-direction:column;inset:0;row-gap:10px;background-color:var(--secondary-color);align-items:center;justify-content:center}#splash path{animation-name:pulse;animation-duration:2s;animation-iteration-count:infinite;transform-origin:50% 50%}.toggle{display:flex;align-items:center}.toggle>*{display:none}@keyframes peekaboo{0%{transform:translateY(-100%)}100%{transform:translateY(0)}}@keyframes pulse{0%{transform:scale(1)}10%{transform:scale(1.1)}20%{transform:scale(1)}30%{transform:scale(1.1)}40%{transform:scale(1)}100%{transform:scale(1)}}
+    </style>
+    <script>
+        class AudioPlayer{#e;#t=[];#n=0;currentState="pause";callback;constructor(e){this.#e=new Audio,this.callback=e,this.#s()}#s(){this.#e.onended=()=>{this.currentState="ended",this.callback(this.currentState),this.next()},this.#e.onpause=()=>{this.currentState="pause",this.callback(this.currentState)},this.#e.onerror=e=>{e.preventDefault(),this.currentState="error",this.callback(this.currentState,this.#e.error)},this.#e.onloadstart=()=>{this.currentState="loading",this.callback(this.currentState)},this.#e.onplaying=()=>{this.currentState="play",this.callback(this.currentState)},this.#e.ontimeupdate=()=>{this.currentState="progress",this.callback(this.currentState)}}previous(){this.#n--,this.#n<0&&(this.#n=this.#t.length-1),this.play(this.#t[this.#n],this.#t)}async play(e=null,t=null){this.#t=t||this.#t,this.currentTrack=e||this.currentTrack,this.#e.paused||this.#e.pause();try{return this.#e.src=this.#t[this.#n].url,await this.#e.play(),!0}catch(e){return this.currentState="error",!1}}pause(){this.#e.pause()}next(){this.#n++,this.#n>=this.#t.length&&(this.#n=0),this.play(this.#t[this.#n],this.#t)}scrub(e){this.#e.currentTime=this.#e.duration*e/100}get currentTrack(){return this.#t[this.#n]}set currentTrack(e){for(let t=0;t<this.#t.length;t++)if(this.#t[t].id===e.id){this.#n=t;break}}get volume(){return this.#e.volume}set volume(e){this.#e.volume=e/100}get duration(){return this.#e.duration}get currentTime(){return this.#e.currentTime}}class Component{element;callback;SPEED=0;constructor(e=null,t=(()=>{})){this.element=document.querySelector(e),this.callback=t,this.SPEED=1e3*parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--speed").replace(/(ms|s)/g,""))}setElement(e){this.element=e}get displayed(){return"initial"===this.element.style.display}set displayed(e){let t;t=e?"initial":"none",this.element.style.display=t}}class Button extends Component{#i=!1;constructor(e,t){super(e,t),this.element&&this.#s()}#s(){this.element.onclick=()=>{this.#i||(this.callback(),this.#i=!0,setTimeout((()=>{this.#i=!1}),this.SPEED))}}setElement(e){super.setElement(e),this.#s()}get text(){return this.element.querySelector("label").innerText}set text(e){this.element.querySelector("label").innerText=e}get color(){return this.element.querySelector("label").style.color}set color(e){this.element.querySelector("label").style.color=e}}class ToggleButton extends Button{#r;#a=0;constructor(e,t){super(e,t),this.#r=this.element.children,this.toggle(0)}toggle(e=null){this.#r[this.#a].style.display="none",null!==e?this.#a=e:(this.#a++,this.#a>=this.#r.length&&(this.#a=0)),this.#r[this.#a].style.display="block"}}class ListButton extends Button{#l;constructor(e,t){super(null,t),this.#l=e;const n=document.createElement("div"),s=document.querySelector(".list-item").content.cloneNode(!0);s.querySelector("label").textContent=this.#l.name,n.appendChild(s),this.setElement(n.children[0]);const i=n.querySelector(".toggle");"folder"===e.type?i.children[0].style.display="initial":(this.element.className="leaf",this.element.removeChild(i))}}class PeekABoo extends Component{#o=null;#c=2500;constructor(e){super(e)}show(e="",t="success"){this.#o&&this.hide();let n="transparent";switch(this.element.style.backgroundColor="transparent",t){case"success":n="var(--success-color)";break;case"warning":n="var(--warning-color)";break;case"error":n="var(--error-color)"}this.element.style.backgroundColor=n,requestAnimationFrame((()=>{this.element.innerText=e,this.element.style.animationName="peekaboo",this.#o=setTimeout((()=>{this.hide()}),this.#c)}))}hide(){this.#o&&clearTimeout(this.#o),this.#o=null,this.element.innerText="",this.element.style.animationName=""}}class Info extends Component{#u;#h;#d=!1;#p;#m;constructor(e,t){super(e,t),this.#u=this.element.querySelector("#info-container"),this.#p=this.#u.querySelector(".name"),this.#m=this.#u.querySelector(".type"),this.#h=new ToggleButton("#info-button",(()=>{this.#d?this.close():this.open()}))}update(e){this.#h.text=e.name,this.#p.innerText=e.name,this.#m.innerText=e.type,this.#h.color="error"===e.type?"var(--error-color)":"var(--primary-color)"}open(){this.#d||(this.#u.style.transform="scaleY(1)",this.#h.toggle(1),this.#d=!0,setTimeout((()=>{for(let e=0;e<this.#u.children.length;e++){this.#u.children[e].style.display="flex"}}),this.SPEED))}close(){if(this.#d){for(let e=0;e<this.#u.children.length;e++){this.#u.children[e].style.display="none"}this.#u.style.transform="scaleY(0)",this.#h.toggle(0),this.#d=!1}}}class Controller extends Component{currentState="pause";#y;constructor(e,t){super(e,t);new Button("#previous-button",(()=>{this.callback("previous")}));this.#y=new ToggleButton("#action-button",(()=>{"loading"!==this.currentState&&("pause"===this.currentState?this.callback("play"):this.callback("pause"))}));new Button("#next-button",(()=>{this.callback("next")}))}setState(e){this.currentState=e;let t=0;switch(this.currentState){case"play":t=1;break;case"pause":t=0;break;case"loading":t=2;break;case"error":t=3}this.#y.toggle(t)}}class RangeBar extends Component{#g;#b;constructor(e,t){super(e,t),this.#g=this.element.querySelector("input[type='range']"),this.#b=this.element.querySelector(".range-bar"),this.#g.oninput=()=>{this.value=this.#g.value,this.callback(this.value)},this.value=parseFloat(this.#g.value)}get value(){return parseFloat(this.#g.value)}set value(e){this.#b.style.transform=`scaleX(${e/100})`}}class Splash{#k;#S;#f;#v=["Loading, please wait...","Still loading, hang on!","Loading, zzzz..."];#x=null;constructor(){this.#k=document.querySelector("#splash"),this.#S=this.#k.querySelector("p"),this.#f=this.#k.querySelector("path");let e=0;this.#S.innerText=this.#v[e],this.#x=setInterval((()=>{e++,e>=this.#v.length&&(e=0),this.#S.innerText=this.#v[e]}),5e3)}error(){clearInterval(this.#x),this.#x=null,this.#f.style.animationName="none",this.#f.style.fill="var(--error-color)",this.#S.innerText="Error connecting to server.",this.#S.style.color="var(--error-color)"}delete(){clearInterval(this.#x),this.#x=null,this.#f.style.animationName="none",this.#S.innerText="App loaded!",setTimeout((()=>{document.body.removeChild(this.#k)}),1e3)}}class Menu extends Component{#T;#w;#I;#B;#C=null;#E=!1;constructor(e,t){super(e,t),this.#I=new ToggleButton("#menu-button",(()=>{this.#E?this.close():this.open()})),this.#B=new Button("#menu-back-button",(()=>{const e=this.#w.children.length-1;this.#L(e)})),this.#w=this.element.querySelector("#menu-container")}#D(e){const t=document.createElement("ul");e.forEach((e=>{const n=new ListButton(e,(()=>{"folder"===e.type?this.#D(e.children):this.callback(e)}));t.appendChild(n.element)})),this.#C&&(this.#C.style.transform="translateX(-100%)"),this.#w.appendChild(t),this.#C=t,setTimeout((()=>{this.#C.style.transform="translateX(0)"}),10),this.#B.displayed=this.#w.children.length>1}#L(e=null){if(null!==e){const t=this.#w.children[e];t.style.transform="translateX(100%)",this.#C=this.#w.children[e-1],this.#C.style.transform="translateX(0)",this.#w.children.length-1>1?this.#B.displayed=!0:this.#B.displayed=!1,setTimeout((()=>{this.#w.removeChild(t)}),this.SPEED)}else this.#w.innerHTML="",this.#C=null,this.#B.displayed=!1}open(){this.#I.toggle(1),this.#w.style.transform="scaleY(1)",this.callback({type:"opening"}),setTimeout((()=>{this.#D(this.#T)}),this.SPEED),this.#E=!0}close(){this.#I.toggle(0),this.#L(),this.#w.style.transform="scaleY(0)",this.#E=!1}setTrail(e){this.#E}get data(){return this.#T}set data(e){this.#T=e}}let e,t,n,s,i,r,a,l,o;const c="https://shrouded-fire-liver.glitch.me/";window.onload=async()=>{u(),await h(c,!0),d(),p()};const u=()=>{"serviceWorker"in navigator&&navigator.serviceWorker.register("service-worker.js")},h=async(t,i=!1)=>{i&&(n=new Splash);try{const s=await fetch(t,{headers:{"Accept-Encoding":"gzip"}}),r=await s.json();e=[...r,{type:"open",name:"open..."},{type:"reset",name:"reset"},{type:"exit",name:"exit"}],i&&n.delete()}catch(e){i?n.error():s.show("Something went wrong...","error")}},d=()=>{s=new PeekABoo("#peek-a-boo"),i=new Info("#info",(()=>{})),r=new Controller("#controller",(e=>{switch(e){case"play":t.currentTrack?t.play():o.open();break;case"pause":t.pause();break;case"next":t.next();break;case"previous":t.previous()}})),a=new RangeBar("#scrub",(e=>{t.scrub(e)})),l=new RangeBar("#volume",(e=>{t.volume=e})),o=new Menu("#menu",(async n=>{switch(n.type){case"opening":i.close();break;case"music":case"file":o.close(),await t.play(n,m(e,n.id));break;case"open":document.querySelector("#file-input").click();break;case"reset":o.close(),await h(`${c}/reset`),o.data=e,s.show("Data updated!");break;case"exit":window.close()}})),o.data=e;const n=document.querySelector("#file-input");n.onchange=async()=>{const e=[];Array.from(n.files).forEach((t=>{e.push({id:t.name,name:t.name,type:"file",url:URL.createObjectURL(t)})})),o.close(),await t.play(e[0],e)}},p=()=>{t=new AudioPlayer(((e,n=null)=>{switch("progress"!==e&&r.setState(e),e){case"error":i.update({name:t.currentTrack.name,type:"error",error:n});break;case"play":t.duration===1/0?a.element.style.display="none":a.element.style.display="flex",i.update(t.currentTrack);break;case"progress":a.value=t.currentTime/t.duration*100}})),t.volume=l.value},m=(e,t)=>{let n=null;for(let s=0;s<e.length;s++){const i=e[s];if(i.children?n=m(i.children,t):i.id===t&&(n=e),n)break}return n};
+    </script>
+</head>
+
+<body>
+      
     <div id="info">
-      <div id="info-container"></div>
-      <button id="info-button" class="toggle">
-        <label>info</label>
+      <div id="info-container">
+        <h2>Name</h2>
+        <p class="name">Music Player PWA</p>
+        <h2>Type</h2>
+        <p class="type">JavaScript PWA audio player</p>
+      </div>
+      <button id="info-button" class="toggle" aria-label="Info">
+        <label>MUSIC PLAYER</label>
         <svg
-          width="100%"
-          height="70%"
+          width="45px"
+          height="45px"
           viewBox="0 0 6 6"
           fill="var(--primary-color)"
         >
@@ -27,10 +44,10 @@
       </button>
     </div>
     <div id="controller">
-      <button id="previous-button">
+      <button id="previous-button" aria-label="Previous">
         <svg
-          width="40%"
-          height="100%"
+          width="30%"
+          height="40%"
           viewBox="0 0 9 12"
           fill="var(--primary-color)"
         >
@@ -39,7 +56,7 @@
           />
         </svg>
       </button>
-      <button id="action-button" class="toggle">
+      <button id="action-button" class="toggle" aria-label="Action">
         <svg
           width="90%"
           height="100%"
@@ -48,7 +65,6 @@
         >
           <path d="M22.164,11.082l-22.164,11.082l0,-22.164l22.164,11.082Z" />
         </svg>
-
         <svg
           width="90%"
           height="100%"
@@ -69,7 +85,6 @@
           <rect x="8.29" y="8.29" width="5.585" height="5.585" />
           <rect x="16.58" y="8.29" width="5.585" height="5.585" />
         </svg>
-
         <svg
           width="90%"
           height="100%"
@@ -81,10 +96,10 @@
           />
         </svg>
       </button>
-      <button id="next-button">
+      <button id="next-button" aria-label="Next">
         <svg
-          width="40%"
-          height="100%"
+          width="30%"
+          height="40%"
           viewBox="0 0 9 12"
           fill="var(--primary-color)"
         >
@@ -94,13 +109,20 @@
         </svg>
       </button>
     </div>
+
+    <div id="scrub" class="range">
+      <div class="range-bar"></div>
+      <input type="range" min="0" max="100" value="10" aria-label="Srcub" />
+    </div>
+
     <div id="volume" class="range">
       <div class="range-bar"></div>
-      <input type="range" min="0" max="100" value="10" />
+      <input type="range" min="0" max="100" value="10" aria-label="Volume" />
     </div>
+
     <div id="menu">
       <div id="menu-container"></div>
-      <button id="menu-back-button" class="back-button">
+      <button id="menu-back-button" class="back-button" aria-label="Menu Back">
         <svg
           width="100%"
           height="45px"
@@ -115,7 +137,7 @@
           />
         </svg>
       </button>
-      <button id="menu-button" class="toggle">
+      <button id="menu-button" class="toggle" aria-label="Menu">
         <svg
           width="45px"
           height="45px"
@@ -145,25 +167,48 @@
       multiple
       accept="audio/*"
       class="hidden"
+      aria-label="Files"
     />
 
-    <!-- TEMPLATES -->
+    <div id="peek-a-boo">peekaboo</div>
+
+    <div id="splash">
+      <svg width="92px" height="92px" viewBox="0 0 21 21">
+        <rect
+          x="0"
+          y="0"
+          width="20.71"
+          height="20.71"
+          fill="var(--terciary-color)"
+        />
+        <path
+          d="M16.663,17.003l-4.283,0l-0,-3.994l2.048,-0l-0,-5.309l-6.076,0l0.001,9.303l-4.284,0l0,-3.994l2.047,-0l-0,-9.302l10.547,0l0,13.296Z"
+          fill="var(--primary-color)"
+        />
+      </svg>
+      <p></p>
+    </div>
+
     <template class="list-item">
       <li>
         <label>Item default</label>
         <div class="toggle">
           <svg
-            width="100%"
+            width="31px"
             height="45px"
-            viewBox="0 0 4 5"
+            viewBox="0 0 6 8"
             fill="var(--secondary-color)"
           >
             <path
-              d="M0,3.681l1.397,-1.416l-1.397,-1.416l0.838,-0.849l2.236,2.265l-2.236,2.265l-0.838,-0.849Z"
+              d="M1.403,0l3.613,3.64l-3.661,3.641l-1.355,-1.374l2.27,-2.243l-2.24,-2.308l1.373,-1.356Z"
             />
           </svg>
         </div>
       </li>
     </template>
   </body>
+</html>
+
+</body>
+
 </html>

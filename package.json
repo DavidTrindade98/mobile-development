@@ -1,5 +1,36 @@
 {
+  "scripts": {
+    "build": "gulp --gulpfile deploy/gulpfile.js",
+    "deploy": "npm run build && git add . && git commit -m 'updated class 14' && git push -u origin class14"
+  },
+  "type": "module",
+  "name": "mobile-development",
+  "version": "1.0.0",
+  "description": "This is a Progressive Web App (PWA) music player that allows users to listen to their favorite songs online, even when they are offline. The app is built using HTML, CSS, and JavaScript, and it is designed to work on any device with a modern web browser, including desktops, laptops, tablets, and mobile devices.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamieBurridge/mobile-development.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamieBurridge/mobile-development/issues"
+  },
+  "homepage": "https://github.com/JamieBurridge/mobile-development#readme",
   "devDependencies": {
+    "del": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^4.0.1",
+    "gulp-each": "^0.5.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-source-injector": "^1.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-string-replace": "^1.1.2",
+    "gulp-terser": "^2.1.0",
     "live-server": "^1.2.2"
   }
 }

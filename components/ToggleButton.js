@@ -12,7 +12,6 @@ export default class ToggleButton extends Button {
 
   toggle(index = null) {
     this.#togglesList[this.#currentToggleIndex].style.display = "none";
-
     if (index !== null) {
       this.#currentToggleIndex = index;
     } else {
@@ -21,7 +20,6 @@ export default class ToggleButton extends Button {
         this.#currentToggleIndex = 0;
       }
     }
-
     this.#togglesList[this.#currentToggleIndex].style.display = "block";
   }
 }

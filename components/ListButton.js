@@ -11,15 +11,17 @@ export default class ListButton extends Button {
     const divElement = document.createElement("div");
     const template = document.querySelector(".list-item");
     const templateClone = template.content.cloneNode(true);
-    templateClone.querySelector("label").textContent =
-      this.#listButtonData.name;
-
+    templateClone.querySelector("label").textContent = this.#listButtonData.name;
     divElement.appendChild(templateClone);
+
     this.setElement(divElement.children[0]);
 
     const iconsContainer = divElement.querySelector(".toggle");
     if (data.type === "folder") {
       iconsContainer.children[0].style.display = "initial";
+    } else {
+      this.element.className = "leaf";
+      this.element.removeChild(iconsContainer);
     }
   }
 }

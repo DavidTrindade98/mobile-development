@@ -13,8 +13,8 @@ The app is built using the following technologies:
 
 ## How to use
 
-Access the app [here](https://DavidTrindade98.github.io/mobile-development-david/)
+Access the app [here](https://davidtrindade98.github.io/mobile-development-david/)
 
 ## Contributors
 
-This project was created by [DavidTrindade](https://github.com/DavidTrindade98)
+This project was created by [DavidTrindade](https://github.com/DavidTrindadee98)

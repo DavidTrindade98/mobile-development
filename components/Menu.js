@@ -8,18 +8,19 @@ export default class Menu extends Component {
   #menuContainer;
   #menuButton;
   #backButton;
-  #currentList;
+  #currentList = null;
   #isOpen = false;
 
-  constructor(elemId, callback) {
-    super(elemId, callback);
+  constructor(elementId, callback) {
+    super(elementId, callback);
 
     this.#menuButton = new ToggleButton("#menu-button", (value) => {
       this.#isOpen ? this.close() : this.open();
     });
 
     this.#backButton = new Button("#menu-back-button", (value) => {
-      this.#deleteList(this.#menuContainer.children.length - 1);
+      const index = this.#menuContainer.children.length - 1;
+      this.#deleteList(index);
     });
 
     this.#menuContainer = this.element.querySelector("#menu-container");
@@ -39,30 +40,36 @@ export default class Menu extends Component {
       ul.appendChild(listButton.element);
     });
 
+    if (this.#currentList) {
+      this.#currentList.style.transform = "translateX(-100%)";
+    }
     this.#menuContainer.appendChild(ul);
     this.#currentList = ul;
 
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       this.#currentList.style.transform = "translateX(0)";
-    });
-
+    }, 10);
     this.#backButton.displayed = this.#menuContainer.children.length > 1;
   }
 
   #deleteList(index = null) {
     if (index !== null) {
       const list = this.#menuContainer.children[index];
-      this.#menuContainer.removeChild(list);
-
-      this.#currentList =
-        this.#menuContainer.children[this.#menuContainer.children.length - 1];
+      list.style.transform = "translateX(100%)";
+      this.#currentList = this.#menuContainer.children[index - 1];
       this.#currentList.style.transform = "translateX(0)";
+
+      this.#menuContainer.children.length - 1 > 1
+        ? (this.#backButton.displayed = true)
+        : (this.#backButton.displayed = false);
+      setTimeout(() => {
+        this.#menuContainer.removeChild(list);
+      }, this.SPEED);
     } else {
       this.#menuContainer.innerHTML = "";
       this.#currentList = null;
+      this.#backButton.displayed = false;
     }
-
-    this.#backButton.displayed = this.#menuContainer.children.length > 1;
   }
 
   open() {
@@ -73,7 +80,6 @@ export default class Menu extends Component {
     setTimeout(() => {
       this.#createList(this.#menuData);
     }, this.SPEED);
-
     this.#isOpen = true;
   }
 
@@ -81,15 +87,20 @@ export default class Menu extends Component {
     this.#menuButton.toggle(0);
     this.#deleteList();
     this.#menuContainer.style.transform = "scaleY(0)";
-
     this.#isOpen = false;
+  }
+
+  setTrail(trail) {
+    if (!this.#isOpen) return;
+    console.log(trail);
   }
 
   get data() {
     return this.#menuData;
   }
 
-  set data(value) {
-    this.#menuData = value;
+  set data(val) {
+    this.#menuData = val;
+    //if opened, paint trail.
   }
 }
